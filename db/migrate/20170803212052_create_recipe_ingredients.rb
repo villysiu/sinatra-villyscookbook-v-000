@@ -4,5 +4,6 @@ class CreateRecipeIngredients < ActiveRecord::Migration[5.1]
       t.integer :recipe_id
       t.integer :ingredient_id
       t.string :quantity
+    end
   end
 end
