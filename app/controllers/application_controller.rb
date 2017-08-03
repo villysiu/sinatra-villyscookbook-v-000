@@ -1,5 +1,6 @@
 require './config/environment'
 require'./app/models/user'
+require'./app/models/recipe'
 
 class ApplicationController < Sinatra::Base
   register Sinatra::ActiveRecordExtension
@@ -13,5 +14,17 @@ class ApplicationController < Sinatra::Base
 
   end
 
+  get '/' do
+    erb :index
+  end
 
+  helpers do
+    def logged_in?
+      !!current_user
+    end
+
+    def current_user
+      @current_user ||= User.find(session[:id]) if session[:id]
+    end
+  end
 end
