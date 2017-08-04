@@ -4,7 +4,6 @@ class UsersController < ApplicationController
     redirect '/'
   end
 
-
   post '/users/login' do
     @current_user = User.find_by(:name => params[:name])
 
@@ -12,7 +11,7 @@ class UsersController < ApplicationController
     redirect '/recipes'
   end
 
-  get 'users/signup' do
+  get '/users/signup' do
     erb :'/users/signup'
   end
 
