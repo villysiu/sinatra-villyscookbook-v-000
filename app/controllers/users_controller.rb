@@ -28,7 +28,12 @@ class UsersController < ApplicationController
 
   post '/users/signup' do
     @user = User.create(params[:user])
-    redirect "/recipes"
+    if @user && @user.errors.messages
+      erb :'/users/signup'
+    else
+      session[:id] = @user.id
+      redirect "/recipes"
+    end
   end
 
   get '/users/:slug' do
