@@ -7,10 +7,12 @@
 <% @recipe.ingredients.each do|ingredient| %>
   <li><%=ingredient.name%></li>
 <% end %>
-<form action="/recipes/<%=@recipe.id%>/edit" method="get">
-  <input type="submit" value="Edit Recipe">
-</form>
-<form action="/recipes/<%=@recipe.id%>/delete" method="post">
-  <input id="hidden" type="hidden" name="_method" value="hidden">
-  <input type="submit" value="Delete Recipe">
-</form>
+<% if @recipe.user  == current_user %>
+  <form action="/recipes/<%=@recipe.id%>/edit" method="get">
+    <input type="submit" value="Edit Recipe">
+  </form>
+  <form action="/recipes/<%=@recipe.id%>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="hidden">
+    <input type="submit" value="Delete Recipe">
+  </form>
+<% end %>
