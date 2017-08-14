@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  get 'users/login' do
+  get '/users/login' do
     redirect '/'
   end
 

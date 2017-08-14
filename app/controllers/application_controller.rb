@@ -1,4 +1,4 @@
-
+require 'rack-flash'
 require './config/environment'
 require "./app/models/user"
 
@@ -12,10 +12,15 @@ class ApplicationController < Sinatra::Base
 
     enable :sessions
     set :session_secret, "password_security"
+    use Rack::Flash
   end
 
   get '/' do
+    if logged_in?
+      redirect "/recipes"
+    else
       erb :index
+    end
   end
 
   helpers do
