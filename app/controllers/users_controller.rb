@@ -45,4 +45,12 @@ class UsersController < ApplicationController
       redirect "/"
     end
   end
+
+  post '/logout' do
+    if logged_in?
+      session.clear
+      flash[:message] = "you are logged out"
+    end
+    erb :index
+  end
 end
