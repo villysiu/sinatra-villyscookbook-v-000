@@ -12,7 +12,7 @@
     <input type="submit" value="Edit Recipe">
   </form>
   <form action="/recipes/<%=@recipe.id%>/delete" method="post">
-    <input id="hidden" type="hidden" name="_method" value="hidden">
+    <input id="hidden" type="hidden" name="_method" value="delete">
     <input type="submit" value="Delete Recipe">
   </form>
 <% end %>

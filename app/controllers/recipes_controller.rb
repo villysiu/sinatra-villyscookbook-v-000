@@ -75,7 +75,15 @@
     else
       flash[:message] = "update failed"
       redirect "/recipes/#{@recipe.id}"
-     end
+    end
   end
+
+
+    delete '/recipes/:id/delete' do
+      @recipe = Recipe.find(params[:id])
+      @recipe.delete
+      flash[:message] = "#{@recipe.name} deleted"
+      redirect "/recipes"
+    end
 
 end
