@@ -61,5 +61,21 @@
     end
   end
 
+  patch '/recipes/:id' do
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(params[:recipe])
+      params[:ingredient].each do |i|
+        if !i[:name].empty?
+          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name])
+        end
+      end
+      @recipe.save
+      flash[:message] = "#{@recipe.name} successfully updated"
+      redirect "/recipes/#{@recipe.id}"
+    else
+      flash[:message] = "update failed"
+      redirect "/recipes/#{@recipe.id}"
+     end
+  end
 
 end
