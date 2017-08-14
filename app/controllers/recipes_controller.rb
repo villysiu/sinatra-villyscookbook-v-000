@@ -45,7 +45,20 @@
       flash[:message] = "You are not logged in"
       redirect "/"
     end
+  end
 
+  get '/recipes/:id/edit' do
+    if logged_in?
+      @recipe = Recipe.find(params[:id])
+      if @recipe.user==current_user
+        erb :'/recipes/edit_recipe'
+      else
+        flash[:message] = "You cannot edit a recipe by another user"
+      end
+    else
+      flash[:message] = "You are not logged in"
+      redirect "/"
+    end
   end
 
 end
