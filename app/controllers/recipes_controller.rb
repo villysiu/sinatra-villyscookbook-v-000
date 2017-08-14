@@ -37,4 +37,15 @@
     end
   end
 
+  get 'recipes/:id' do
+    if logged_in?
+      @recipe = Recipe.find(params[:id])
+      erb :'/recipes/show_recipe'
+    else
+      flash[:message] = "You are not logged in"
+      redirect "/"
+    end
+
+  end
+
 end
