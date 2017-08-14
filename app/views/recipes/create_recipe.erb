@@ -1,0 +1,17 @@
+Create a new recipe<br>
+
+<form action="/recipes/new" method="post">
+<label>Recipe Name</label> <input type="text" name="recipe[name]"><br>
+<label>Method</label> <input type="text" name="recipe[direction]"><br>
+<label>Photo Link</label> <input type="text" name="recipe[photo_link]"><br>
+<label>Ingredients</label>
+Pick from existing ingredients,
+  <% Ingredient.all.each do |i| %>
+    <input type="checkbox" id="ingredient_<%i.id%>" name="recipe[ingreient_ids][]" value="<%=i.id%>"><%=i.name%></input><br>
+  <% end %>
+or create new one:<br>
+    <input type="text" name="ingredient[][name]" value=""><br>
+    <input type="text" name="ingredient[][name]" value=""><br>
+    <input type="text" name="ingredient[][name]" value=""><br>
+    <input type="submit" value="Create recipe">
+</form>

@@ -15,6 +15,10 @@ class RecipesController < ApplicationController
       flash[:message] = "You are not logged in"
       redirect "/"
     end
+  end
+
+  post '/recipes/new' do
 
   end
+
 end
