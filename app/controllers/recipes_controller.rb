@@ -25,7 +25,7 @@
     if @recipe.valid?
       params[:ingredient].each do |i|
         if !i[:name].empty?
-          @recipe.ingredients << i.find_or_create(name: i[:name])
+          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name])
         end
       end
       @recipe.save
@@ -37,7 +37,7 @@
     end
   end
 
-  get 'recipes/:id' do
+  get '/recipes/:id' do
     if logged_in?
       @recipe = Recipe.find(params[:id])
       erb :'/recipes/show_recipe'
