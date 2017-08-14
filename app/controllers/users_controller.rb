@@ -19,4 +19,13 @@ class UsersController < ApplicationController
     @user = User.create(params[:user])
     redirect "/recipes"
   end
+
+  get '/users/:slug' do
+    if logged_in?
+      erb :'/users/show_user_recipes'
+    else
+      flash[:message] = "You are not logged in"
+      redirect "/"
+    end
+  end
 end

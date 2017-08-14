@@ -4,4 +4,12 @@ class User < ActiveRecord::Base
   has_secure_password validations: true
 
   has_many :recipes
+
+  def slug
+    self.name.downcase.gsub('','-')
+  end
+
+  def self.find_by_slug(slug)
+    self.all.detect{|user.name.downcase == slug.gsub('-','')}
+  end
 end
