@@ -1,0 +1,18 @@
+Edit <%=@recipe.name%><br>
+
+<form action="/recipes/<%=@recipe.id%>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+<label>Recipe Name</label> <input type="text" name="recipe[name]" value="<%=@recipe.name%>"><br>
+<label>Method</label> <input type="text" name="recipe[direction]" value="<%=@recipe.direction%>"><br>
+<label>Photo Link</label> <input type="text" name="recipe[photo_link]" value="<%=@recipe.photo_link%>"><br>
+<label>Ingredients</label>
+Pick from existing ingredients,
+  <% Ingredient.all.each do |i| %>
+    <input type="checkbox" id="ingredient_<%i.id%>" name="recipe[ingredient_ids][]" value="<%=i.id%>" <%='checked' if @recipe.ingredients.include?(i) %>><%=i.name%></input><br>
+  <% end %>
+or create new one:<br>
+    <input type="text" name="ingredient[][name]" value=""><br>
+    <input type="text" name="ingredient[][name]" value=""><br>
+    <input type="text" name="ingredient[][name]" value=""><br>
+    <input type="submit" value="Update recipe">
+</form>
