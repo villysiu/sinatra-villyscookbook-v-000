@@ -6,9 +6,16 @@ class UsersController < ApplicationController
 
   post '/users/login' do
     @current_user = User.find_by(:name => params[:name])
-
-    session[:id] = @current_user.id
-    redirect '/recipes'
+    if @current_user.nil?
+      flash[:message] = "User does not exist"
+      redirect '/'
+    elsif @current_user.authenticate(params[:password]) == false
+      flash[:message] = "Password is incorrect"
+      redirect '/'
+    else
+      session[:id] = @current_user.id
+      redirect '/recipes'
+    end
   end
 
   get '/users/signup' do
