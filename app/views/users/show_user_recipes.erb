@@ -1,0 +1,17 @@
+Welcome <%=current_user.name %>
+<br>
+
+See all recipes by <%=@user.name%>
+<table><thead>
+  <tr><th>Recipe Name</th>
+    <th>Last updated</th>
+  </tr>
+</thead>
+<tbody>
+  <% @user.recipes.each do |recipe| %>
+  <tr><td><a href="/recipes/<%=recipe.id%>"><%=recipe.name%></td>
+    <td><%=recipe.updated_at%></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>

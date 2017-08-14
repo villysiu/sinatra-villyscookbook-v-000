@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
   get '/users/:slug' do
     if logged_in?
+      @user = User.find_by_slug(params[:slug])
       erb :'/users/show_user_recipes'
     else
       flash[:message] = "You are not logged in"
