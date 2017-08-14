@@ -1,1 +1,16 @@
 Welcome <%=current_user.name %>
+<table><thead>
+  <tr><th>Recipe Name</th>
+    <th>Created by</th>
+    <th>Last updated</th>
+  </tr>
+</thead>
+<tbody>
+  <% @recipes.each do |recipe| %>
+  <tr><td><a href="/recipes/<%=recipe.id%>"><%=recipe.name%></td>
+    <td><%=recipe.user.name%></td>
+    <td><%=recipe.updated_at%></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
