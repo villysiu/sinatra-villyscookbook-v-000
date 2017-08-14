@@ -1,1 +1,9 @@
-<%=@recipe.name %>
+<%=@recipe.name %> by <%=@recipe.user.name%>
+<br>
+<label>Direction</label>
+<%=@recipe.direction%>
+<br>
+<label>Ingredients</label>
+<% @recipe.ingredients.each do|ingredient| %>
+<li><%=ingredient.name%></li>
+<% end %>
