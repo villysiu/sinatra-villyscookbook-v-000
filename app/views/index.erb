@@ -36,7 +36,7 @@
       <h2 class="text-center">Villy's Cookbook</h2>
       <p class="text-center">A place to store and share you recipes</p>
         <% if flash.has?(:message) %>
-          <%=flash[:message] %>
+          <p class="text-danger"><%=flash[:message] %></p>
         <% end %>
         <div class="col-sm-4 form-group"></div>
         <div class="col-sm-4 form-group">
