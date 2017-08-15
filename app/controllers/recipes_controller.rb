@@ -30,7 +30,7 @@
     if @recipe.valid?
       params[:ingredient].each do |i|
         if !i[:name].empty?
-          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name].downsize.singularize)
+          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name].downcase.singularize)
         end
       end
       @recipe.save
@@ -81,7 +81,7 @@
     if @recipe.update(params[:recipe])
       params[:ingredient].each do |i|
         if !i[:name].empty?
-          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name].downsize.singularize)
+          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name].downcase.singularize)
         end
       end
       @recipe.save
