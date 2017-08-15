@@ -1,3 +1,6 @@
+<% if flash.has?(:message) %>
+  <%=flash[:message] %>
+<% end %>
 <%=@recipe.name %> by <%=@recipe.user.name%>
 <br>
 <label>Direction</label>

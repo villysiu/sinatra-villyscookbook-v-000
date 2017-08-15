@@ -7,6 +7,9 @@
 <body>
   <h1>Villy's Cookbook</h1>
   <p>A place to store and share you recipes</p>
+  <% if flash.has?(:message) %>
+    <%=flash[:message] %>
+  <% end %>
   <form action="/users/login" method="post">
     user name: <input type="text" name="name">
     password: <input type="password" name="password">

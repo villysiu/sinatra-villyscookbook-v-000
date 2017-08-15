@@ -1,5 +1,7 @@
 Edit <%=@recipe.name%><br>
-
+<% if flash.has?(:message) %>
+  <%=flash[:message] %>
+<% end %>
 <form action="/recipes/<%=@recipe.id%>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
 <label>Recipe Name</label> <input type="text" name="recipe[name]" value="<%=@recipe.name%>"><br>

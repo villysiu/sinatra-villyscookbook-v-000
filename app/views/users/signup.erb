@@ -6,7 +6,9 @@
 <body>
   <h1>Villy's Cookbook</h1>
   <p>A place to store and share you recipes</p>
-
+  <% if flash.has?(:message) %>
+    <%=flash[:message] %>
+  <% end %>
   <form action="/users/signup" method="post">
     Name: <input type="text" name="user[name]">
     Email: <input type="text" name="user[email]">

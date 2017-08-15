@@ -1,4 +1,8 @@
 Welcome <%=current_user.name %>
+<% if flash.has?(:message) %>
+  <%=flash[:message] %>
+<% end %>
+
 <table><thead>
   <tr><th>Recipe Name</th>
     <th>Created by</th>

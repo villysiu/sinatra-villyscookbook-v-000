@@ -1,5 +1,13 @@
 Welcome <%=current_user.name %>
 <br>
+<form action="logout" method="post">
+  <input type="submit" value="Logout">
+</form>
+
+<% if flash.has?(:message) %>
+  <%=flash[:message] %>
+<% end %>
+
 
 See all recipes by <%=@user.name%>
 <table><thead>
