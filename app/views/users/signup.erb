@@ -1,24 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Villy's Cookbook</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Villy's Cookbook</h1>
-  <p>A place to store and share you recipes</p>
-  <% if flash.has?(:message) %>
-    <%=flash[:message] %>
-  <% end %>
-  <% if @user && @user.errors %>
-  <% @user.errors.full_messages.each do |msg| %>
-    <%=msg%>
-  <% end %>
-  <% end %>
-  <form action="/users/signup" method="post">
-    Name: <input type="text" name="user[name]">
-    Email: <input type="text" name="user[email]">
-    password: <input type="text" name="user[password]">
-    <input type="submit" value="Signup">
-  </form>
-</body>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Villy's Cookbook</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron text-center">
+    <div id="login" class="container-fluid bg-grey">
+      <h2 class="text-center">Villy's Cookbook</h2>
+      <p class="text-center">A place to store and share you recipes</p>
+        <% if flash.has?(:message) %>
+          <%=flash[:message] %>
+        <% end %>
+        <% if @user && @user.errors %>
+          <% @user.errors.full_messages.each do |msg| %>
+            <%=msg%>
+          <% end %>
+        <% end %>
+        <div class="col-sm-4 form-group"></div>
+        <div class="col-sm-4 form-group">
+          <form action="/users/signup" method="post">
+            <input type="text" name="user[email]" value="" placeholder="Email"><br>
+            <input type="text" name="user[username]" value="" placeholder="Name"><br>
+            <input type="text" name="user[password]" value="" placeholder="Password"><br>
+            <input type="submit" value="Sign Up">
+          </form>
+          <a href="/users/login">Already a member, login here</a>
+        </div>
+        <div class="col-sm-4 form-group"></div>
+
+      </div>
+    </div>
+  </body>
 </html>
