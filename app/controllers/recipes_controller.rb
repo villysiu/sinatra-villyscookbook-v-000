@@ -2,7 +2,12 @@
   get '/recipes' do
     if logged_in?
       @recipes = Recipe.all
-      erb :'/recipes/show_all_recipes'
+      if @recipes.empty?
+        flash[:message] = "The receipe box is currently empty. Please contribute by submitting the first recipe."
+        redirect :'/recipes/new'
+      else
+        erb :'/recipes/show_all_recipes'
+      end
     else
       flash[:message] = "You are not logged in"
       redirect "/"
@@ -25,7 +30,7 @@
     if @recipe.valid?
       params[:ingredient].each do |i|
         if !i[:name].empty?
-          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name])
+          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name].downsize.singularize)
         end
       end
       @recipe.save
@@ -39,8 +44,13 @@
 
   get '/recipes/:id' do
     if logged_in?
-      @recipe = Recipe.find(params[:id])
-      erb :'/recipes/show_recipe'
+      @recipe = Recipe.find(params[:id]) rescue nil
+      if @recipe.nil?
+        flash[:message] = 'Recipe does not exist'
+        redirect '/recipes'
+      else
+        erb :'/recipes/show_recipe'
+      end
     else
       flash[:message] = "You are not logged in"
       redirect "/"
@@ -49,11 +59,16 @@
 
   get '/recipes/:id/edit' do
     if logged_in?
-      @recipe = Recipe.find(params[:id])
-      if @recipe.user==current_user
+      @recipe = Recipe.find(params[:id]) rescue nil
+      if @recipe.nil?
+        flash[:message] = 'Recipe does not exist'
+        redirect '/recipes'
+      elsif @recipe.user==current_user
         erb :'/recipes/edit_recipe'
       else
-        flash[:message] = "You cannot edit a recipe by another user"
+        flash[:message] = "You cannot edit a recipe created by another user"
+        erb :'/recipes/show_recipe'
+
       end
     else
       flash[:message] = "You are not logged in"
@@ -66,7 +81,7 @@
     if @recipe.update(params[:recipe])
       params[:ingredient].each do |i|
         if !i[:name].empty?
-          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name])
+          @recipe.ingredients << Ingredient.find_or_create_by(name: i[:name].downsize.singularize)
         end
       end
       @recipe.save
@@ -79,11 +94,11 @@
   end
 
 
-    delete '/recipes/:id/delete' do
-      @recipe = Recipe.find(params[:id])
-      @recipe.delete
-      flash[:message] = "#{@recipe.name} deleted"
-      redirect "/recipes"
-    end
+  delete '/recipes/:id/delete' do
+    @recipe = Recipe.find(params[:id])
+    @recipe.delete
+    flash[:message] = "#{@recipe.name} deleted"
+    redirect "/recipes"
+  end
 
 end

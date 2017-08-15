@@ -44,7 +44,7 @@ class UsersController < ApplicationController
         redirect '/'
       else
         if @user.recipes.empty?
-          flash[:message] = "#{@user.name}'s recipe box is empty'"
+          flash[:message] = "#{@user.name}'s recipe box is empty"
         end
         erb :'/users/show_user_recipes'
       end
