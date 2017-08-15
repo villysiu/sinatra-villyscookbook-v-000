@@ -39,7 +39,15 @@ class UsersController < ApplicationController
   get '/users/:slug' do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
-      erb :'/users/show_user_recipes'
+      if @user.nil?
+        flash[:message] = "User does not exist"
+        redirect '/'
+      else
+        if @user.recipes.empty?
+          flash[:message] = "#{@user.name}'s recipe box is empty'"
+        end
+        erb :'/users/show_user_recipes'
+      end
     else
       flash[:message] = "You are not logged in"
       redirect "/"
