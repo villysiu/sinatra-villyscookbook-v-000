@@ -13,7 +13,7 @@ Create a new recipe<br>
 <label>Photo Link</label> <input type="text" name="recipe[photo_link]"><br>
 <label>Ingredients</label>
 Pick from existing ingredients,
-  <% Ingredient.all.each do |i| %>
+  <% Ingredient.order(:name).each do |i| %>
     <input type="checkbox" id="ingredient_<%i.id%>" name="recipe[ingreient_ids][]" value="<%=i.id%>"><%=i.name%></input><br>
   <% end %>
 or create new one:<br>
