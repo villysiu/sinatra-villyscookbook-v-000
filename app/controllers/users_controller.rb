@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   post '/users/login' do
     @current_user = User.find_by(:name => params[:name])
+    puts params
     if @current_user.nil?
       flash[:message] = "User does not exist"
       redirect '/'
