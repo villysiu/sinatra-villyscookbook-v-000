@@ -38,6 +38,7 @@
     #  flash[:message] = "#{@recipe.name} successfully created"
       redirect "/recipes/#{@recipe.id}"
     else
+      flash[:message] = "Create failed"
       erb :'/recipes/create_recipe'
     end
   end
@@ -89,8 +90,10 @@
       redirect "/recipes/#{@recipe.id}"
     else
       flash[:message] = "update failed"
-      redirect "/recipes/#{@recipe.id}"
+      erb :'/recipes/edit_recipe'
+    #  redirect "/recipes/#{@recipe.id}"
     end
+
   end
 
 

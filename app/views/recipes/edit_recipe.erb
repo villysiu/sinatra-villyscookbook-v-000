@@ -53,6 +53,7 @@
     <% end %>
   <% end %>
 
+
   <!-- Container (Recipe Table) -->
   <h3 align="left">Edit your recipe</h3>
   <form action="/recipes/<%=@recipe.id%>" method="post">
@@ -70,7 +71,8 @@
         <label>Method:</label>
       </div>
       <div class="col-sm-9 form-group text-left">
-        <textarea rows="5" class="form-control" name="recipe[direction]" value="<%=@recipe.direction%>"></textarea>
+
+        <textarea rows="5" class="form-control" name="recipe[direction]"><%=@recipe.direction%></textarea>
       </div>
     </div>
     <div class="row">

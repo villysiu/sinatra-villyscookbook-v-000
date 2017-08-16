@@ -45,11 +45,11 @@
   <h1></h1>
 
   <% if flash.has?(:message) %>
-    <p class="text-danger"><%= flash[:message] %></p>
+    <h5 class="text-danger"><%= flash[:message] %></h5>
   <% end %>
-  <% if @user && @user.errors %>
-    <% @user.errors.full_messages.each do |msg| %>
-      <p class="text-danger"><%=msg%></p>
+  <% if @recipe && @recipe.errors %>
+    <% @recipe.errors.full_messages.each do |msg|%>
+      <h5 class="text-danger"><%=msg%></h5>
     <% end %>
   <% end %>
   <!-- Container (Recipe) -->
