@@ -47,20 +47,73 @@
   <% if flash.has?(:message) %>
     <p class="text-danger"><%= flash[:message] %></p>
   <% end %>
-  <!-- Container (Recipe Table) -->
-<form action="/recipes/<%=@recipe.id%>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="patch">
-<label>Recipe Name</label> <input type="text" name="recipe[name]" value="<%=@recipe.name%>"><br>
-<label>Method</label> <input type="text" name="recipe[direction]" value="<%=@recipe.direction%>"><br>
-<label>Photo Link</label> <input type="text" name="recipe[photo_link]" value="<%=@recipe.photo_link%>"><br>
-<label>Ingredients</label>
-Pick from existing ingredients,
-  <% Ingredient.order(:name).each do |i| %>
-    <input type="checkbox" id="ingredient_<%i.id%>" name="recipe[ingredient_ids][]" value="<%=i.id%>" <%='checked' if @recipe.ingredients.include?(i) %>><%=i.name%></input><br>
+  <% if @recipe && @recipe.errors %>
+    <% @recipe.errors.full_messages.each do |msg|%>
+      <%=msg%><br>
+    <% end %>
   <% end %>
-or create new one:<br>
-    <input type="text" name="ingredient[][name]" value=""><br>
-    <input type="text" name="ingredient[][name]" value=""><br>
-    <input type="text" name="ingredient[][name]" value=""><br>
-    <input type="submit" value="Update recipe">
-</form>
+
+  <!-- Container (Recipe Table) -->
+  <form action="/recipes/<%=@recipe.id%>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <label>Recipe Name:</label>
+      </div>
+      <div class="col-sm-8 form-group text-left">
+        <input type="text" class="form-control" name="recipe[name]" value="<%=@recipe.name%>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <label>Method:</label>
+      </div>
+      <div class="col-sm-8 form-group text-left">
+        <textarea rows="5" class="form-control" name="recipe[direction]" value="<%=@recipe.direction%>"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <label>Photo Link:</label>
+      </div>
+      <div class="col-sm-8 form-group text-left">
+        <input type="text" class="form-control" name="recipe[photo_link]" value="<%=@recipe.photo_link%>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <label>Ingredients:</label>
+      </div>
+      <div class="col-sm-8 text-left">
+        <div class="row">
+          <label>Pick from the existing ingredients, </label>
+        </div>
+        <div class="row">
+          <% Ingredient.order(:name).each do |i| %>
+            <div class="col-sm-4">
+              <input type="checkbox" id="ingredient_<%=i.name %>" name="recipe[ingredient_ids][]" value="<%=i.id %>" <%='checked' if @recipe.ingredients.include?(i) %>><%=i.name%></input><br>
+            </div>
+          <% end %>
+        </div>
+        <div class="row">
+          <label>or create new ones: </label>
+        </div>
+        <div class="row">
+          <div id="myTable2">
+            <div class="col-sm-4"><input type="text" name="ingredient[][name]" value="" placeholder="New Ingredient"></div>
+            <div class="col-sm-4"><input type="text" name="ingredient[][name]" value="" placeholder="New Ingredient"></div>
+            <div class="col-sm-4"><input type="text" name="ingredient[][name]" value="" placeholder="New Ingredient"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 form-group text-right">
+        <input type="submit" class="btn" value="Update your recipe">
+      </div>
+    </div>
+  </form>
+
+<!-- Container (Recipe) end-->
+</div></div>
+</body></html>
