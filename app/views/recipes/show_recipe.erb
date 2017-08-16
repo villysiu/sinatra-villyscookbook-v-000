@@ -1,21 +1,87 @@
-<% if flash.has?(:message) %>
-  <%=flash[:message] %>
-<% end %>
-<%=@recipe.name %> by <%=@recipe.user.name%>
-<br>
-<label>Direction</label>
-<%=@recipe.direction%>
-<br>
-<label>Ingredients</label>
-<% @recipe.ingredients.each do|ingredient| %>
-  <li><%=ingredient.name%></li>
-<% end %>
-<% if @recipe.user  == current_user %>
-  <form action="/recipes/<%=@recipe.id%>/edit" method="get">
-    <input type="submit" value="Edit Recipe">
-  </form>
-  <form action="/recipes/<%=@recipe.id%>/delete" method="post">
-    <input id="hidden" type="hidden" name="_method" value="delete">
-    <input type="submit" value="Delete Recipe">
-  </form>
-<% end %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Recipe Box</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Villy's Cookbook</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div><ul class="nav navbar-nav navbar-right">
+        <li><a>WELCOME, <%= current_user.name %></a></li>
+
+        <li><a href="/">HOME</a></li>
+        <li><a href="/users/<%=current_user.slug%>">YOUR RECIPES</a></li>
+        <li><a href="/recipes/new">NEW RECIPE</a></li>
+        <li><a><form action="/logout" method="post">
+          <button name="logout" type="submit" class="btn btn-link">
+            <span class="glyphicon glyphicon-log-out"></span> LOGOUT
+          </button>
+        </form></a></li>
+      </ul></div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+<div class="jumbotron text-center">
+  <h1></h1>
+
+  <% if flash.has?(:message) %>
+    <p class="text-danger"><%= flash[:message] %></p>
+  <% end %>
+
+  <!-- Container (Recipe) -->
+  <div class="row">
+    <div class="col-sm-12 form-group text-left">
+      <h3><%=@recipe.name%></h3>
+      by <a href="/users/<%=@recipe.user.slug%>"><%=@recipe.user.name%></a>
+    </div>
+    <div class="col-sm-4 form-group">
+      <img src="<%=@recipe.photo_link%>" class="img-thumbnail" alt="<%=@recipe.name%>" width="500" height="500">
+    </div>
+    <div class="col-sm-8 form-group">
+      <div class="col-sm-12 form-group text-left">
+        <label>Ingredients</label>
+        <% @recipe.ingredients.each do |ingredient| %>
+          <li class="text-left"><%=ingredient.name%></li>
+        <% end %>
+      </div>
+      <div class="col-sm-12 form-group text-left">
+        <label>Directions</label>
+        <%=@recipe.direction%>
+      </div>
+      <%if @recipe.user == current_user %>
+        <div class="col-sm-4 form-group text-left">
+          <form action="/recipes/<%=@recipe.id%>/edit" method="GET">
+            <input type="submit" class="btn" value="Edit Recipe">
+          </form>
+        </div>
+        <div class="col-sm-4 form-group text-left">
+          <form method="post" action='/recipes/<%=@recipe.id%>/delete'>
+            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input type="submit" class="btn" value="Delete Recipe">
+          </form>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div></div>
+</body></html>

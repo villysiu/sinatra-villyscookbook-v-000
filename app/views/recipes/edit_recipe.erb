@@ -1,7 +1,53 @@
-Edit <%=@recipe.name%><br>
-<% if flash.has?(:message) %>
-  <%=flash[:message] %>
-<% end %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Recipe Box</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Villy's Cookbook</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div><ul class="nav navbar-nav navbar-right">
+        <li><a>WELCOME, <%= current_user.name %></a></li>
+
+        <li><a href="/">HOME</a></li>
+        <li><a href="/users/<%=current_user.slug%>">YOUR RECIPES</a></li>
+        <li><a href="/recipes/new">NEW RECIPE</a></li>
+        <li><a><form action="/logout" method="post">
+          <button name="logout" type="submit" class="btn btn-link">
+            <span class="glyphicon glyphicon-log-out"></span> LOGOUT
+          </button>
+        </form></a></li>
+      </ul></div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+<div class="jumbotron text-center">
+  <h1></h1>
+
+  <% if flash.has?(:message) %>
+    <p class="text-danger"><%= flash[:message] %></p>
+  <% end %>
+  <!-- Container (Recipe Table) -->
 <form action="/recipes/<%=@recipe.id%>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
 <label>Recipe Name</label> <input type="text" name="recipe[name]" value="<%=@recipe.name%>"><br>

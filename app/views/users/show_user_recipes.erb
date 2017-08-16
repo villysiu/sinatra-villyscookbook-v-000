@@ -1,25 +1,71 @@
-Welcome <%=current_user.name %>
-<br>
-<form action="logout" method="post">
-  <input type="submit" value="Logout">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Recipe Box</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<% if flash.has?(:message) %>
-  <%=flash[:message] %>
-<% end %>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Villy's Cookbook</a>
+    </div>
 
-<p>
-See all recipes by <%=@user.name%>
-<table><thead>
-  <tr><th>Recipe Name</th>
-    <th>Last updated</th>
-  </tr>
-</thead>
-<tbody>
-  <% @user.recipes.each do |recipe| %>
-  <tr><td><a href="/recipes/<%=recipe.id%>"><%=recipe.name%></td>
-    <td><%=recipe.updated_at%></td>
-  </tr>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div><ul class="nav navbar-nav navbar-right">
+        <li><a>WELCOME, <%= current_user.name %></a></li>
+
+        <li><a href="/">HOME</a></li>
+        <li><a href="/users/<%=current_user.slug%>">YOUR RECIPES</a></li>
+        <li><a href="/recipes/new">NEW RECIPE</a></li>
+        <li><a><form action="/logout" method="post">
+          <button name="logout" type="submit" class="btn btn-link">
+            <span class="glyphicon glyphicon-log-out"></span> LOGOUT
+          </button>
+        </form></a></li>
+      </ul></div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+<div class="jumbotron text-center">
+  <h1></h1>
+
+  <% if flash.has?(:message) %>
+    <p class="text-danger"><%= flash[:message] %></p>
   <% end %>
-</tbody>
-</table>
+  <!-- Container (Recipe Table) -->
+  <h3 class="text-left">All recipes by <%=@user.name%></h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Recipe Name</th>
+        <th>Last updated on</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.recipes.each do |recipe| %>
+        <tr>
+          <td align="left"><a href="/recipes/<%=recipe.id%>"><%=recipe.name%></td>
+          <td align="left"><%=recipe.updated_at%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<!-- Container (Recipe Table) end-->
+</div></div>
+</body></html>

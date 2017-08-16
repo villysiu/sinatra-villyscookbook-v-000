@@ -35,7 +35,7 @@
       end
       @recipe.save
       current_user.recipes << @recipe
-      flash[:message] = "#{@recipe.name} successfully created"
+    #  flash[:message] = "#{@recipe.name} successfully created"
       redirect "/recipes/#{@recipe.id}"
     else
       erb :'/recipes/create_recipe'
